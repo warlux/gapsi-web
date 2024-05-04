@@ -1,0 +1,253 @@
+{
+	"openapi": "3.0.1",
+	"info": {
+		"title": "OpenAPI definition",
+		"version": "v0"
+	},
+	"servers": [
+		{
+			"url": "http://localhost:6060/gapsi-ws",
+			"description": "Generated server url"
+		}
+	],
+	"paths": {
+		"/proveedores": {
+			"get": {
+				"tags": [
+					"gapsi-controller"
+				],
+				"operationId": "getProveedores",
+				"parameters": [
+					{
+						"name": "page",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					},
+					{
+						"name": "size",
+						"in": "query",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int32"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/GapsiProveedoresResponseDto"
+								}
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": [
+					"gapsi-controller"
+				],
+				"operationId": "postProveedor",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/Proveedor"
+							}
+						}
+					},
+					"required": true
+				},
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"$ref": "#/components/schemas/GapsiGenericResponseDto"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/gapsi/version": {
+			"get": {
+				"tags": [
+					"gapsi-controller"
+				],
+				"operationId": "getVersion",
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"/check": {
+			"get": {
+				"tags": [
+					"gapsi-controller"
+				],
+				"operationId": "check",
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/candidato/{idCandidato}/bienvenida": {
+			"get": {
+				"tags": [
+					"gapsi-controller"
+				],
+				"operationId": "getBienvenidaCandidato",
+				"parameters": [
+					{
+						"name": "idCandidato",
+						"in": "path",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"content": {
+							"*/*": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	},
+	"components": {
+		"schemas": {
+			"Proveedor": {
+				"type": "object",
+				"properties": {
+					"id": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"nombre": {
+						"type": "string"
+					},
+					"razonSocial": {
+						"type": "string"
+					},
+					"direccion": {
+						"type": "string"
+					}
+				}
+			},
+			"GapsiGenericResponseDto": {
+				"type": "object",
+				"properties": {
+					"error": {
+						"type": "string"
+					}
+				}
+			},
+			"GapsiProveedoresResponseDto": {
+				"type": "object",
+				"properties": {
+					"error": {
+						"type": "string"
+					},
+					"data": {
+						"$ref": "#/components/schemas/PageProveedor"
+					}
+				}
+			},
+			"PageProveedor": {
+				"type": "object",
+				"properties": {
+					"totalElements": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"totalPages": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"size": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"content": {
+						"type": "array",
+						"items": {
+							"$ref": "#/components/schemas/Proveedor"
+						}
+					},
+					"number": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"first": {
+						"type": "boolean"
+					},
+					"last": {
+						"type": "boolean"
+					},
+					"numberOfElements": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"pageable": {
+						"$ref": "#/components/schemas/PageableObject"
+					},
+					"empty": {
+						"type": "boolean"
+					}
+				}
+			},
+			"PageableObject": {
+				"type": "object",
+				"properties": {
+					"offset": {
+						"type": "integer",
+						"format": "int64"
+					},
+					"pageNumber": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"pageSize": {
+						"type": "integer",
+						"format": "int32"
+					},
+					"unpaged": {
+						"type": "boolean"
+					},
+					"paged": {
+						"type": "boolean"
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,15 @@
+server:
+  servlet:
+    context-path: /gapsi-web
+  port : 8080
+  
+spring:
+  thymeleaf:
+    cache: false
+    enabled: true
+    prefix: classpath:/templates/
+    suffix: .html
+    
+gapsi:
+  ws:
+    url:  http://localhost:6060/gapsi-ws
