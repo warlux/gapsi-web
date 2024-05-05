@@ -10,6 +10,9 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
     
+logging:
+  config: classpath:./gapsi-web-log4j.xml
+    
 gapsi:
   ws:
     url:  http://localhost:6060/gapsi-ws
